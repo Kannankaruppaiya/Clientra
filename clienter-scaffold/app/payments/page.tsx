@@ -1,18 +1,24 @@
-import { Nav } from '@/components/nav';
-import { createClient } from '@/lib/supabase/server';
+import { Shell } from '@/components/page-shell';
+const money = (n: number) => '₹' + n.toLocaleString('en-IN');
+
+const rows = [
+  { client: 'Nova Studios', project: 'Brand Refresh', amount: 225000, date: '14 Oct 2026' },
+  { client: 'Aarav Textiles', project: 'Q4 Campaign', amount: 160000, date: '10 Oct 2026' },
+  { client: 'Peak Fitness', project: 'Website Build', amount: 280000, date: '02 Oct 2026' },
+];
 
 export default async function Page() {
-  const supabase = createClient();
-  // RLS scopes every query to the signed-in user automatically.
-  // const { data } = await supabase.from('payments').select('*');
-  const { data: { user } } = await supabase.auth.getUser();
   return (
-    <>
-      <Nav />
-      <div className="container">
-        <h1 style={{ textTransform: 'capitalize' }}>payments</h1>
-        <p>Signed in as {user?.email}. TODO: load and render payments from Supabase.</p>
-      </div>
-    </>
+    <Shell title="Payments" action={<a className="btn" href="/payments">Record payment</a>}>
+      <table>
+        <thead><tr><th>Client</th><th>Project</th><th>Amount</th><th>Date</th></tr></thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i}><td><b>{r.client}</b></td><td>{r.project}</td>
+              <td className="money">{money(r.amount)}</td><td>{r.date}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </Shell>
   );
 }

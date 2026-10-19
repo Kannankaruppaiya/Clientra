@@ -1,18 +1,26 @@
-import { Nav } from '@/components/nav';
-import { createClient } from '@/lib/supabase/server';
+import { Shell } from '@/components/page-shell';
+
+const rows = [
+  { name: 'Brightline Co', stage: 'Qualified', source: 'Referral' },
+  { name: 'Mango Media', stage: 'Proposal', source: 'Website' },
+  { name: 'Skyward Labs', stage: 'New', source: 'Instagram' },
+  { name: 'Delta Retail', stage: 'New', source: 'Cold Call' },
+];
+const cls = (s: string) => (s === 'Qualified' ? 'green' : s === 'Proposal' ? 'amber' : '');
 
 export default async function Page() {
-  const supabase = createClient();
-  // RLS scopes every query to the signed-in user automatically.
-  // const { data } = await supabase.from('leads').select('*');
-  const { data: { user } } = await supabase.auth.getUser();
   return (
-    <>
-      <Nav />
-      <div className="container">
-        <h1 style={{ textTransform: 'capitalize' }}>leads</h1>
-        <p>Signed in as {user?.email}. TODO: load and render leads from Supabase.</p>
-      </div>
-    </>
+    <Shell title="Leads" action={<a className="btn" href="/leads">+ Add lead</a>}>
+      <table>
+        <thead><tr><th>Lead</th><th>Stage</th><th>Source</th></tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name}><td><b>{r.name}</b></td>
+              <td><span className={'pill ' + cls(r.stage)}>{r.stage}</span></td>
+              <td>{r.source}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </Shell>
   );
 }
