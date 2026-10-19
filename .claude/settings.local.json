@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(npx rea-agents*)",
+      "Bash(npx -y rea-agents*)",
+      "Bash(bunx rea-agents*)",
+      "Bash(node *)",
+      "Bash(python3 *)",
+      "Bash(jq *)",
+      "Bash(openssl *)",
+      "Bash(base64 *)",
+      "Bash(unzip *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(cat *)",
+      "Bash(sed *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(find *)"
+    ]
+  }
+}
