@@ -1,18 +1,7 @@
-import { Nav } from '@/components/nav';
-import { createClient } from '@/lib/supabase/server';
-
-export default async function Page() {
-  const supabase = createClient();
-  // RLS scopes every query to the signed-in user automatically.
-  // const { data } = await supabase.from('intake').select('*');
-  const { data: { user } } = await supabase.auth.getUser();
-  return (
-    <>
-      <Nav />
-      <div className="container">
-        <h1 style={{ textTransform: 'capitalize' }}>intake</h1>
-        <p>Signed in as {user?.email}. TODO: load and render intake from Supabase.</p>
-      </div>
-    </>
-  );
-}
+import { Shell } from '@/components/page-shell';
+const rows=[{name:'Ravi Kumar',form:'Website enquiry',when:'2h ago'},{name:'Sana M',form:'Instagram DM',when:'1d ago'}];
+export default function Page(){return(
+  <Shell title="Intake" active="/intake">
+    <table><thead><tr><th>Submission</th><th>Form</th><th>Received</th></tr></thead>
+    <tbody>{rows.map((r)=>(<tr key={r.name}><td><b>{r.name}</b></td><td>{r.form}</td><td className="muted">{r.when}</td></tr>))}</tbody></table>
+  </Shell>);}

@@ -1,18 +1,15 @@
-import { Nav } from '@/components/nav';
-import { createClient } from '@/lib/supabase/server';
-
-export default async function Page() {
-  const supabase = createClient();
-  // RLS scopes every query to the signed-in user automatically.
-  // const { data } = await supabase.from('documents').select('*');
-  const { data: { user } } = await supabase.auth.getUser();
+import { Shell } from '@/components/page-shell';
+const rows = [
+  { name: 'Quotation #Q-1042', kind: 'Quotation', client: 'Nova Studios', date: '14 Oct 2026' },
+  { name: 'Retainer Agreement', kind: 'Contract', client: 'Aarav Textiles', date: '09 Oct 2026' },
+  { name: 'Invoice #INV-305', kind: 'Invoice', client: 'Peak Fitness', date: '02 Oct 2026' },
+];
+export default function Page() {
   return (
-    <>
-      <Nav />
-      <div className="container">
-        <h1 style={{ textTransform: 'capitalize' }}>documents</h1>
-        <p>Signed in as {user?.email}. TODO: load and render documents from Supabase.</p>
-      </div>
-    </>
+    <Shell title="Documents" active="/documents" action={<a className="btn" href="/documents/new/quotation">+ New quotation</a>}>
+      <table><thead><tr><th>Document</th><th>Type</th><th>Client</th><th>Date</th></tr></thead>
+        <tbody>{rows.map((r)=>(<tr key={r.name}><td><b>{r.name}</b></td><td><span className="pill">{r.kind}</span></td><td>{r.client}</td><td>{r.date}</td></tr>))}</tbody>
+      </table>
+    </Shell>
   );
 }
