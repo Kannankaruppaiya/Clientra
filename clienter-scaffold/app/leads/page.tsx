@@ -10,7 +10,7 @@ const cls = (s: string) => (s === 'Qualified' ? 'green' : s === 'Proposal' ? 'am
 
 export default async function Page() {
   return (
-    <Shell title="Leads" action={<a className="btn" href="/leads">+ Add lead</a>}>
+    <Shell title="Leads" active="/leads" action={<a className="btn" href="/leads">+ Add lead</a>}>
       <table>
         <thead><tr><th>Lead</th><th>Stage</th><th>Source</th></tr></thead>
         <tbody>

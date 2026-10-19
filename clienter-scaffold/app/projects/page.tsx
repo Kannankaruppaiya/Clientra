@@ -9,7 +9,7 @@ const rows = [
 
 export default async function Page() {
   return (
-    <Shell title="Projects" action={<a className="btn" href="/projects">+ New project</a>}>
+    <Shell title="Projects" active="/projects" action={<a className="btn" href="/projects">+ New project</a>}>
       <table>
         <thead><tr><th>Project</th><th>Client</th><th>Budget</th><th>Status</th></tr></thead>
         <tbody>

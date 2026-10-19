@@ -11,7 +11,7 @@ export default async function Page() {
   // const supabase = createClient();
   // const { data: rows } = await supabase.from('clients').select('name,phone,created_at');
   return (
-    <Shell title="Clients" action={<a className="btn" href="/clients/new">+ New client</a>}>
+    <Shell title="Clients" active="/clients" action={<a className="btn" href="/clients/new">+ New client</a>}>
       <table>
         <thead><tr><th>Name</th><th>Phone</th><th>Added</th></tr></thead>
         <tbody>
